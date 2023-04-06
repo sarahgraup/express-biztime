@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "express": "^5.0.0-beta.1",
+    "pg": "^8.10.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "express-biztime",
+  "version": "1.0.0",
+  "main": "app.js",
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
