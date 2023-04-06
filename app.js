@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/companies", companiesRoutes);
-// app.use("/invoices", invoicesRoutes);
+app.use("/invoices", invoicesRoutes);
 
 /** 404 handler: matches unmatched routes; raises NotFoundError. */
 app.use(function (req, res, next) {
