@@ -39,9 +39,7 @@ describe("GET /companies", function () {
 describe("GET /companies/code", function () {
     test("Gets one company with code", async function () {
         const resp = await request(app).get(`/companies/${company.code}`);
-        console.log(typeof (resp.body.company.invoices[0].add_date));
-        console.log(typeof (company.invoices[0].add_date));
-        debugger;
+
         expect(resp.body).toEqual(
             {
                 "company": {
@@ -60,10 +58,55 @@ describe("GET /companies/code", function () {
             });
     });
 
-    test("404 if not found code", async function(){
+    test("404 if not found code", async function () {
         const resp = await request(app).get(`/companies/0`);
         expect(resp.statusCode).toEqual(404);
 
     });
 });
 
+describe("POST /companies/code", function () {
+    test("makes a new company", async function () {
+
+        const newCompany = { name: "google", code: "goog", description: "they search good" };
+        const resp = await request(app).post("/companies").send(newCompany)
+
+        expect(resp.body).toEqual({ company: newCompany })
+    });
+
+    test("error if no body", async function () {
+        const resp = await request(app).post("/companies");
+
+        expect(resp.statusCode).toEqual(400);
+    })
+
+});
+
+describe("PUT /companies/:code", function () {
+    test("update company name and description", async function () {
+        const resp = await request(app).put("/companies/pet")
+            .send({ name: "newName", description: "newDescription" });
+
+        expect(resp.body).toEqual(
+            {
+                company:
+                {
+                    code: "pet",
+                    name: "newName",
+                    description: "newDescription"
+                }
+            });
+    });
+
+    test("error if no body", async function () {
+        const resp = await request(app).post("/companies/pet");
+
+        expect(resp.statusCode).toEqual(404);
+    })
+
+    test("error if no company", async function () {
+        const resp = await request(app).post("/companies/notCompany");
+
+        expect(resp.statusCode).toEqual(404);
+    })
+})
