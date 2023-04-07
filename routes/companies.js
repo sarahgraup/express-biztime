@@ -42,7 +42,7 @@ router.get("/:code", async function (req, res) {
             FROM invoices
             WHERE comp_code = $1`, [code]
     )
-    const invoices = results2.rows;
+    const invoices = results2.rows; //just get id by mapping over
 
     company.invoices = invoices;
 
